@@ -13,15 +13,15 @@
         <a href="#" class="btn btn-primary">Comprar</a>
         {%for p in productos%}
           <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4>"
-              <div class="card h-100">
+               <div class="card h-100">
                    <img class="card-img-top" src="{{ p.imagen.url }}" alt="Card image cap">
                    <div class="card-body">
                         <strong>{{p.nombre}}</strong>
                         <p class="card-text">{{p.descripcion | truncatechars:50}}</p>
                         <p> ${{p.precio}}</p>
                         <a href="#" class="btn btn-primary">Comprar</a>
-                    </div>    
-              </div>
+                 </div>    
+            </div>
          </div>       
     </div> {%endfor%}
 </div>

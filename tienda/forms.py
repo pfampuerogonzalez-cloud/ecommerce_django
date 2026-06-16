@@ -5,7 +5,7 @@ class ProductoForms(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields= ["nombre"
+        fields= ["nombre",
                  "precio",
                  "imagen",
                  "descripcion"

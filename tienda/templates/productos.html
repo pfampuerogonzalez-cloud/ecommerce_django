@@ -1,34 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Lista de Productos</h1>
+{% extends "base.html" %}
 
-    <div class="row">
-        <a href="#" class="btn btn-primary">Comprar</a>
-        {%for p in productos%}
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4>"
-               <div class="card h-100">
-                   <img class="card-img-top" src="{{ p.imagen.url }}" alt="Card image cap">
-                   <div class="card-body">
-                        <strong>{{p.nombre}}</strong>
-                        <p class="card-text">{{p.descripcion | truncatechars:50}}</p>
-                        <p> ${{p.precio}}</p>
-                        <a href="#" class="btn btn-primary">Comprar</a>
-                 </div>    
-            </div>
-         </div>       
-    </div> {%endfor%}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-5">Gestión de Productos</h1>
+    <a class="btn btn-dark shadow-sm" href="{% url 'crear_producto' %}">
+        <i class="fas fa-plus me-2"></i>Crear nuevo producto
+    </a>
 </div>
-    
-    
-    
-   
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</html>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for producto in productos %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            <div style="height: 200px; overflow: hidden; background-color: #f8f9fa;" class="rounded-top">
+                {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="{{ producto.nombre }}">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                        <span>Sin imagen</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title text-truncate">{{ producto.nombre }}</h5>
+                <h6 class="card-subtitle mb-2 text-success fw-bold">${{ producto.precio }}</h6>
+                <p class="card-text text-secondary small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                    {{ producto.descripcion }}
+                </p>
+            </div>
+
+            <div class="card-footer bg-transparent border-top-0 d-flex gap-2 pb-3">
+                <a class="btn btn-outline-primary btn-sm flex-fill" href="{% url 'actualizar_producto' producto.id %}">
+                    <i class="fas fa-edit me-1"></i> Editar
+                </a>
+                
+                <a class="btn btn-outline-danger btn-sm flex-fill" href="{% url 'borrar_producto' producto.id %}" 
+                   onclick="return confirm('¿Estás seguro de eliminar este producto?');">
+                    <i class="fas fa-trash me-1"></i> Borrar
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <div class="alert alert-light border">
+            <p class="mb-0 text-muted">No hay productos registrados actualmente.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

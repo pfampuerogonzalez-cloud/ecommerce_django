@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1> bienvenido a la tienda</h1>
+
+<p>esta es una tienda crud</p>
+
+<a class="btn" href="{% url 'lista_productos' %}"> Ver productos </a>
+
+<a class="btn" href="{% url 'crear_producto' %}">
+    Crear producto
+</a>
+
+{% endblock %}

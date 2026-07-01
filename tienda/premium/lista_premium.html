@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-5">Gestión de Productos premium</h1>
+    <a class="btn btn-dark shadow-sm" href="{% url 'crear_producto' %}">
+        <i class="fas fa-plus me-2"></i>Crear nuevo producto premium
+    </a>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for producto in premium %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            <div style="height: 200px; overflow: hidden; background-color: #f8f9fa;" class="rounded-top">
+                {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="{{ producto.nombre }}">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                        <span>Sin imagen</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title text-truncate">{{ producto.nombre }}</h5>
+                <h6 class="card-subtitle mb-2 text-success fw-bold">${{ producto.precio }}</h6>
+                <p class="card-text text-secondary small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                    {{ producto.descripcion }}
+                </p>
+            </div>
+
+            <div class="card-footer bg-transparent border-top-0 d-flex gap-2 pb-3">
+                <a class="btn btn-outline-primary btn-sm flex-fill" href="{% url 'actualizar_producto' producto.id %}">
+                    <i class="fas fa-edit me-1"></i> Editar
+                </a>
+                
+                <a class="btn btn-outline-danger btn-sm flex-fill" href="{% url 'borrar_producto' producto.id %}" 
+                   onclick="return confirm('¿Estás seguro de eliminar este producto?');">
+                    <i class="fas fa-trash me-1"></i> Borrar
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <div class="alert alert-light border">
+            <p class="mb-0 text-muted">No hay productos registrados actualmente.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

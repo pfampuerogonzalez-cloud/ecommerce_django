@@ -7,11 +7,11 @@
 </head>
 <body>
     <h1>actualizar producto</h1>
-    <form method="post" entype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.as_p}}
 
-    <button type="submit">actualizar</button>
+        <button type="submit">actualizar</button>
     </form>
     
     

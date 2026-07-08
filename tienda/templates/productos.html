@@ -24,7 +24,9 @@
             </div>
 
             <div class="card-body">
-                <h5 class="card-title text-truncate">{{ producto.nombre }}</h5>
+                <h5 class="card-title text-truncate">
+                    <a href="{% url 'detalle_producto' producto.id %}" class="text-decoration-none text-dark">{{ producto.nombre }}</a>
+                </h5>
                 <h6 class="card-subtitle mb-2 text-success fw-bold">${{ producto.precio }}</h6>
                 <p class="card-text text-secondary small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                     {{ producto.descripcion }}
@@ -32,14 +34,18 @@
             </div>
 
             <div class="card-footer bg-transparent border-top-0 d-flex gap-2 pb-3">
-                <a class="btn btn-outline-primary btn-sm flex-fill" href="{% url 'actualizar_producto' producto.id %}">
-                    <i class="fas fa-edit me-1"></i> Editar
+                <a class="btn btn-success btn-sm flex-fill" href="{% url 'agregar_al_carrito' producto.id %}">
+                    Agregar al carrito
                 </a>
-                
-                <a class="btn btn-outline-danger btn-sm flex-fill" href="{% url 'borrar_producto' producto.id %}" 
+                {% if user.is_staff %}
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'actualizar_producto' producto.id %}">
+                    Editar
+                </a>
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'borrar_producto' producto.id %}" 
                    onclick="return confirm('¿Estás seguro de eliminar este producto?');">
-                    <i class="fas fa-trash me-1"></i> Borrar
+                    Borrar
                 </a>
+                {% endif %}
             </div>
         </div>
     </div>

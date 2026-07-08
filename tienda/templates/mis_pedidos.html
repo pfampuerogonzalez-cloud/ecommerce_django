@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Mis pedidos</h2>
+
+{% if pedidos %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pedido #</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Detalle</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pedido in pedidos %}
+        <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.creado|date:"d/m/Y H:i" }}</td>
+            <td>${{ pedido.total }}</td>
+            <td><a class="btn btn-sm" style="background:#007bff;" href="{% url 'detalle_pedido' pedido.id %}">Ver</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No tenés pedidos registrados.</p>
+{% endif %}
+<a class="btn" href="{% url 'lista_productos' %}">Ir al catálogo</a>
+{% endblock %}

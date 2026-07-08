@@ -2,14 +2,15 @@
 
 {% block content %}
 
-<h1> Bienvenido a la Tienda</h1>
+<div class="text-center">
+    <h1>Bienvenido a la Tienda</h1>
 
-<p>Esta es una Tienda CRUD</p>
+    <p class="lead">Esta es una Tienda CRUD</p>
 
-<a class="btn" href="{% url 'lista_productos' %}"> Ver productos </a>
-
-<a class="btn" href="{% url 'crear_producto' %}">
-    Crear producto
-</a>
+    <div class="mt-4">
+        <a class="btn" href="{% url 'lista_productos' %}">Ver productos</a>
+        <a class="btn" href="{% url 'crear_producto' %}">Crear producto</a>
+    </div>
+</div>
 
 {% endblock %}

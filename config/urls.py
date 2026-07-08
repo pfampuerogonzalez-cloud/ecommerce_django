@@ -24,11 +24,11 @@ from django.conf.urls.static import static
 #LOS REQUEST LLEGAN A ESTE ROUTER Y SON ENRUTADOS A LOS URLS DE CADA APP.
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("tienda/", include("tienda.urls")),
     path("pasarela/", include("pasarela.urls")),
-
 ]
 
 if settings.DEBUG:
-    urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
